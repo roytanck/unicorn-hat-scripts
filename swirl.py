@@ -11,12 +11,11 @@ unicorn.brightness(1)
 width,height=unicorn.get_shape()
 
 colors = unicorn.get_pixels()
-#print( colors )
-
 counter = 0;
 nrofsources = 3;
 sources = [];
 
+# Create a class to contain one source color object
 class Source:
 	xpos = 0
 	ypos = 0
@@ -27,6 +26,7 @@ class Source:
 	g = 0;
 	b = 0;
 
+# function to initialize a new Source with random values
 def init_source( s ):
 	s.radius = random.randint( 10, 100 )
 	s.speed = random.uniform( 0.1, 0.75 )
@@ -42,7 +42,7 @@ def init_source( s ):
 for i in range( nrofsources ):
 	sources.append( init_source( Source() ) )
 
-
+# update the source (which move around the center for the grid)
 def update_sources():
 	for i in range( len( sources ) ):
 		x = math.sin( ( counter * sources[i].speed ) + sources[i].offset ) * sources[i].radius
@@ -50,12 +50,12 @@ def update_sources():
 		y = -math.cos( ( counter * sources[i].speed ) + sources[i].offset ) * sources[i].radius
 		sources[i].ypos = y
 
-
+# calculate the color for each LED in the array based on the source positions 
 def update_colors():
 	for x in range( width ):
 		for y in range( height ):
-			ledposx = ( x * 10 ) - 40
-			ledposy = ( y * 10 ) - 40
+			ledposx = ( x * 10 ) - 35
+			ledposy = ( y * 10 ) - 35
 			r = 0
 			g = 0
 			b = 0
@@ -73,34 +73,15 @@ def update_colors():
 			#print( r )
 			unicorn.set_pixel( x, y, r, g, b )
 
-
+# helper function to calculate distances
 def pythagoras( a, b ):
 	value = math.sqrt( a*a + b*b )
 	return value
 
-
+# main update loop
 for i in range( 0, 100 ):
 	update_sources()
 	update_colors()
 	unicorn.show();
 	counter += 1
 	time.sleep( 0.05 )
-
-# def update_colors():
-# 	for x in range( width ):
-# 		for y in range( height ):
-# 			rgblist = list( colors[x][y] );
-# 			for i in range( len( rgblist ) ):
-# 				addition = random.randint( 0, 50 ) - 25;
-# 				rgblist[i] = max( 0, min( 255, rgblist[i] + addition ) )
-# 			colors[x][y] = tuple( rgblist )
-
-
-# for i in range( 0, 50 ):
-# 	update_colors()
-# 	unicorn.set_pixels( colors )
-# 	unicorn.show()
-# 	time.sleep( 0.05 );
-
-
-# time.sleep( 1 )

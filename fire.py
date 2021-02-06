@@ -51,8 +51,8 @@ def update_sources():
 def update_colors():
 	for x in range( width ):
 		for y in range( height ):
-			ledposx = ( x * 10 ) - 40
-			ledposy = ( y * 10 ) - 40
+			ledposx = ( x * 10 ) - 35
+			ledposy = ( y * 10 ) - 35
 			r = 0
 			g = 0
 			b = 0
